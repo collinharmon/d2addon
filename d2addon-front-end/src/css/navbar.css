@@ -1,0 +1,18 @@
+.navbar{background-color: forestgreen;}
+/*.navbar .active{background-color:rgb(49, 58, 55)}*/
+
+
+.navbar-toggler-icon{color:peru}
+
+.nav-item{
+    /*background-color: blueviolet;*/
+    font-size: 1.2em !important;
+    padding-bottom: 9px;
+}
+
+.navbar-brand{
+   padding-top: 1px; 
+   text-align: left;
+   display: flex;
+   align-items: left;
+}
