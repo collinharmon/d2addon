@@ -5,10 +5,12 @@ import NavBar from './navbar'
 import * as serviceWorker from './serviceWorker';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap';  /*import necessary for dropdown to work*/
+import Routes from './routes.js';
 
 ReactDOM.render(
   <React.StrictMode>
     <NavBar />
+    <Routes />
   </React.StrictMode>,
   document.getElementById('root')
 );
