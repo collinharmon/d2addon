@@ -25,10 +25,10 @@ connection.connect(err => {
 app.use(cors());
 
 app.get('/', (req, res) => {
-    const { username } = req.query;
+    const { username, password } = req.query;
     /*const GET_USER_QUERY = `select * from users where username = '${username}' and password = '${password}'`;*/
     //const GET_USER_QUERY = `select * from users where password = '${password}'`;
-    const GET_USER_QUERY = `select username, password from users where username = '${username}'`;
+    const GET_USER_QUERY = `select username, password from users where username = '${username}' and password = '${password}'`;
     connection.query(GET_USER_QUERY, (err, results) => {
         if(err){
             console.log("hunnnsnn");
