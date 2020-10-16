@@ -9,6 +9,9 @@ export function Dashboard(){
         Auth.setAuth(false);
         Cookies.remove("user");
     }
+    const handleUploadClick = () =>{
+        console.log("the world is love and light");
+    }
     return(
         <div className="Dashboard">
             <h1>Welcome to the Dashboard</h1>

@@ -32,19 +32,22 @@ const Login = () => {
 }
 const LoginForm = () => {
   const Auth = React.useContext(AuthApi);
-  const handleOnClick = () => {
-      fetch(`http://localhost:5000/?username=${Auth.username}`)
+  const handleOnClick = (event) => {
+      fetch(`http://localhost:5000/?username=${Auth.username}&password=${Auth.password}`)
       .then(response => response.json())
       .then(data => 
       {
-        console.log(data);
-        Auth.setAuth(true);
-        Cookies.set("user","loginTrue", {expires: 7});
+        if(data.length > 0){
+          console.log(data);
+          Auth.setAuth(true);
+          Cookies.set("user","loginTrue", {expires: 7});
+        }
       })
       .catch(err => console.error(err))
 
   }
   const handleUsernameChange = (event) => {
+      console.log("hello there");
       Auth.setUsername(event.target.value);
   }
   const handlePasswordChange = (event) => {
