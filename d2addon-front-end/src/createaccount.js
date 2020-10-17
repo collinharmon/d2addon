@@ -16,7 +16,12 @@ const CreateAccount = () => {
 
     const attemptCreateAccount = () => {
         fetch(`http://localhost:5000/Createaccount?username=${Auth.username}&password=${Auth.password}`, {method: 'POST'})
-        .then(response => console.log(response.status))
+        .then(response => {
+            if(response.status == 200){
+                Auth.setAuth(true);
+            }
+            else setLoginFail(true);
+        })
         .catch(err => console.error(err))
     }
 
@@ -92,6 +97,8 @@ const CreateAccount = () => {
                 {passwordMismatch ? (<div style={{ fontSize: 12, color: "red"}}>Provided passwords do not match</div>
                 ) : null}
                 <button type="submit">Create Account</button>
+                {loginFail ? (<div style={{ fontSize: 12, color: "red"}}>Provided username already exists, please choose a different one</div>
+                ) : null}
             </form>
         </div>
     )
