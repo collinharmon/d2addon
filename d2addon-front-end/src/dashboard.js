@@ -5,12 +5,10 @@ import Cookies from 'js-cookie'
 
 export function Dashboard(){
     const Auth = React.useContext(AuthApi)
+
     const handleOnClick = () =>{
         Auth.setAuth(false);
         Cookies.remove("user");
-    }
-    const handleUploadClick = () =>{
-        console.log("the world is love and light");
     }
     return(
         <div className="Dashboard">

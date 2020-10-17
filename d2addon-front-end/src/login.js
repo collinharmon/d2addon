@@ -2,6 +2,8 @@ import Dashboard from './dashboard.js';
 import React, { useState } from 'react';
 import {BrowserRouter as Router, Redirect, Switch, Route} from 'react-router-dom';
 import Cookies from 'js-cookie'
+import CreateAccount from './createaccount.js';
+import ContactMe from './contactme.js';
 
 import AuthApi from "./authapi";
 
@@ -24,13 +26,17 @@ const Login = () => {
     <div>
       <AuthApi.Provider value={{auth, setAuth, username, setUsername, password, setPassword}}>
         <Router>
-          <Routes/>
+          <LoginRoutes/>
         </Router>
       </AuthApi.Provider>
     </div>
   )
 }
 const LoginForm = () => {
+  const [invalidUsername,setInvalidUsername] = useState(false);
+  const [invalidPassword,setInvalidPassword] = useState(false);
+  const [loginFail,setLoginFail] = useState(false);
+
   const Auth = React.useContext(AuthApi);
   const handleOnClick = (event) => {
       fetch(`http://localhost:5000/?username=${Auth.username}&password=${Auth.password}`)
@@ -42,45 +48,78 @@ const LoginForm = () => {
           Auth.setAuth(true);
           Cookies.set("user","loginTrue", {expires: 7});
         }
+        else setLoginFail(true);
       })
       .catch(err => console.error(err))
 
   }
-  const handleUsernameChange = (event) => {
-      console.log("hello there");
-      Auth.setUsername(event.target.value);
-  }
-  const handlePasswordChange = (event) => {
-      Auth.setPassword(event.target.value);
-  }
+  const handleChange = event => {
+      switch (event.target.name){
+        case 'username':
+          Auth.setUsername(event.target.value);
+          break;
+        case 'password':
+          Auth.setPassword(event.target.value);
+          break;
+      }
+  };
+  const handleSubmit = event => {
+      event.preventDefault();
+      console.log("submitted");
+      let tryLogin = true;
+      if(Auth.username.length == 0){
+          setInvalidUsername(true);
+          tryLogin = false;
+      }
+      else setInvalidUsername(false);
+
+      if(Auth.password.length == 0){
+          setInvalidPassword(true);
+          tryLogin = false;
+      }
+      else setInvalidPassword(false);
+
+      if(tryLogin) handleOnClick();
+  };
   return(
     <div>
       <h1>Welcome to the heaven's forge</h1>
-      <form>
+      <form onSubmit={handleSubmit}>
           <div>
               <label>Username</label>
-              <input type="text" value={Auth.username} onChange={handleUsernameChange} />
+              <input name="username" placeholder="username" type="text" value={Auth.username} onChange={handleChange} />
           </div>
+          {invalidUsername ? (<div style={{ fontSize: 12, color: "red"}}>Username cannot be empty</div>
+          ) : null}
           <div>
               <label>Password</label>
-              <input type="password" value={Auth.password} onChange={handlePasswordChange} />
+              <input name="password" placeholder="password" type="password" value={Auth.password} onChange={handleChange} />
           </div>
+          {invalidPassword ? (<div style={{ fontSize: 12, color: "red"}}>Password cannot be empty</div>
+          ) : null}
+          <button type="submit">Login</button>
+          {loginFail ? (<div style={{ fontSize: 12, color: "red"}}>Username or Password is incorrect</div>
+          ) : null}
       </form>
-      <button onClick={handleOnClick}>Login</button>
+      <a href="/CreateAccount"><button>Create Account</button></a>
     </div>
   )
 }
 
-const Routes = () =>{
+const LoginRoutes = () =>{
   const Auth = React.useContext(AuthApi);
   return (
     <Switch>
       <ProtectedLogin exact path="/" auth={Auth.auth}>
           <LoginForm />
       </ProtectedLogin>
+      <ProtectedLogin exact path="/CreateAccount" auth={Auth.auth}>
+          <CreateAccount />
+      </ProtectedLogin>
       <ProtectedDashboard exact path="/Dashboard" auth={Auth.auth} >
         <Dashboard />
       </ProtectedDashboard>
+      <Route exact path="/ContactMe" component={ContactMe} />
     </Switch>
   )
 }
