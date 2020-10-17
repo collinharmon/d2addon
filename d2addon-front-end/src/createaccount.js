@@ -15,7 +15,7 @@ const CreateAccount = () => {
     const Auth = React.useContext(AuthApi);
 
     const attemptCreateAccount = () => {
-        fetch(`http://localhost:5000/?username=${Auth.username}&password=${Auth.password}`, {method: 'POST'})
+        fetch(`http://localhost:5000/Createaccount?username=${Auth.username}&password=${Auth.password}`, {method: 'POST'})
         .then(response => console.log(response.status))
         .catch(err => console.error(err))
     }

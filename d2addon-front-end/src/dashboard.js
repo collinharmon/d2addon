@@ -8,6 +8,8 @@ export function Dashboard(){
 
     const handleOnClick = () =>{
         Auth.setAuth(false);
+        Auth.setUsername("");
+        Auth.setPassword("");
         Cookies.remove("user");
     }
     return(
