@@ -1,6 +1,19 @@
 const express = require('express');
 const mysql = require('mysql');
 const cors = require('cors');
+const multer = require('multer');
+const path = require('path');
+
+const storage = multer.diskStorage({
+   destination: './public/uploads/',
+   filename: function(req, file, cb){
+       cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
+   } 
+});
+
+const upload = multer({
+    storage: storage
+});
 
 const app = express();
 
@@ -8,7 +21,7 @@ const connection = mysql.createConnection({
     host: 'localhost',
     port: 3306,
     user: 'DeckardCain',
-    password: '$tay@WhileAndL!sten',
+    password: '$tay@WhileAndBreathe',
     database: 'd2'
 });
 
@@ -67,6 +80,12 @@ app.post('/Createaccount', (req, res) =>{
         }
     })
 
+});
+
+app.post('/upload', upload.array('thefile', 1), (req, res) => {
+    console.log(req.body);
+    console.log(req.files);
+    res.sendStatus(200);
 });
 
 const PORT = process.env.PORT || 5000;
