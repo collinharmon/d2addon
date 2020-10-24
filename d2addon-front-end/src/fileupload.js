@@ -13,7 +13,7 @@ const FileUpload = () => {
     const onSubmit = e => {
        e.preventDefault();
        const formData = new FormData();
-       formData.append('file', file);
+       formData.append('thefile', file);
        const options = {
            method: 'POST',
            body: formData
