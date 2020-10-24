@@ -1,7 +1,8 @@
 import React from 'react';
 
 import AuthApi from "./authapi";
-import Cookies from 'js-cookie'
+import Cookies from 'js-cookie';
+import FileUpload from "./fileupload.js";
 
 export function Dashboard(){
     const Auth = React.useContext(AuthApi)
@@ -15,6 +16,7 @@ export function Dashboard(){
     return(
         <div className="Dashboard">
             <h1>Welcome to the Dashboard</h1>
+            <FileUpload />
             <button onClick={handleOnClick}>Logout</button>
         </div>
     )
