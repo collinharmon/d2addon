@@ -69,7 +69,6 @@ app.post('/Createaccount', (req, res) =>{
             else{
                 connection.query(INSERT_USER_QUERY, (err, results) => {
                     if(err){
-                        console.log("hunnnsnn");
                         return res.send(err);
                     }
                     else{
@@ -82,9 +81,9 @@ app.post('/Createaccount', (req, res) =>{
 
 });
 
-app.post('/upload', upload.array('thefile', 1), (req, res) => {
+app.post('/upload', upload.single('thefile'), (req, res) => {
     console.log(req.body);
-    console.log(req.files);
+    console.log(req.file);
     res.sendStatus(200);
 });
 
