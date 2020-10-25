@@ -19,6 +19,7 @@ const CreateAccount = () => {
         .then(response => {
             if(response.status == 200){
                 Auth.setAuth(true);
+                Cookies.set("user","loginTrue", {expires: 7});
             }
             else setLoginFail(true);
         })
