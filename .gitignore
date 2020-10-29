@@ -8,6 +8,7 @@
 /.pnp
 .pnp.js
 /
+/d2addon-back-end/mysql_connections.js
 
 # testing
 /coverage
