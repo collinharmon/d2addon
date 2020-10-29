@@ -16,6 +16,7 @@ const Login = () => {
       const user = Cookies.get("user");
       if(user){
           setAuth(true);
+          setUsername(user);
       }
   }
   React.useEffect(() => {
@@ -46,7 +47,7 @@ const LoginForm = () => {
         if(data.length > 0){
           console.log(data);
           Auth.setAuth(true);
-          Cookies.set("user","loginTrue", {expires: 7});
+          Cookies.set("user", `${Auth.username}`, {expires: 7});
         }
         else setLoginFail(true);
       })
