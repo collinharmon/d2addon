@@ -1,9 +1,13 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 # dependencies
-/node_modules
+/d2addon-front-end/node_modules
+/d2addon-back-end/node_modules
+/d2addon-back-end/public/
+/d2addon-back-end/fileupload/json/
 /.pnp
 .pnp.js
+/
 
 # testing
 /coverage
