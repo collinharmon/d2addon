@@ -5,6 +5,7 @@ const multer = require('multer');
 const path = require('path');
 const {exec, fork} = require('child_process');
 const { lstat } = require('fs');
+var config_connections = require('./mysql_connections.js');
 
 const exec_options = {
     cwd: null,
@@ -28,13 +29,7 @@ const upload = multer({
 
 const app = express();
 
-const connection = mysql.createConnection({
-    host: 'localhost',
-    port: 3306,
-    user: 'DeckardCain',
-    password: '$tay@WhileAndBreathe',
-    database: 'd2'
-});
+const connection = mysql.createConnection(config_connections.admin);
 
 connection.connect(err => {
     if(err){
