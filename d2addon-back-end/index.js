@@ -3,11 +3,23 @@ const mysql = require('mysql');
 const cors = require('cors');
 const multer = require('multer');
 const path = require('path');
+const {exec, fork} = require('child_process');
+const { lstat } = require('fs');
+var config_connections = require('./mysql_connections.js');
+
+const exec_options = {
+    cwd: null,
+    env: null,
+    encoding: 'utf8',
+    timeout: 0,
+    maxBuffer: 200 * 1024,
+    killSignal: 'SIGTERM'
+};
 
 const storage = multer.diskStorage({
    destination: './public/uploads/',
    filename: function(req, file, cb){
-       cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
+       cb(null, req.query.username + '_' + file.originalname.substring(0, file.originalname.length-4) + '-' + Date.now() + path.extname(file.originalname));
    } 
 });
 
@@ -17,13 +29,7 @@ const upload = multer({
 
 const app = express();
 
-const connection = mysql.createConnection({
-    host: 'localhost',
-    port: 3306,
-    user: 'DeckardCain',
-    password: '$tay@WhileAndBreathe',
-    database: 'd2'
-});
+const connection = mysql.createConnection(config_connections.admin);
 
 connection.connect(err => {
     if(err){
@@ -82,8 +88,33 @@ app.post('/Createaccount', (req, res) =>{
 });
 
 app.post('/upload', upload.single('thefile'), (req, res) => {
+    const {username} = req.query;
+    /*const q = req.query;
+     *console.log(q.username);
+    */
+
     console.log(req.body);
     console.log(req.file);
+    
+        childProcess = fork("./fileupload/handlefile.js");
+        childProcess.on('message', (msg) => {
+            console.log(`PARENT: message from child process is ${msg}`);
+        });
+        childProcess.send({"filepath":`${__dirname}\\${req.file.path}`});
+    /*exec('java -jar C:\\Users\\colli\\d2reader\\out\\artifacts\\d2reader_jar\\d2reader.jar', exec_options, (err, stdout, stderr) => {
+        console.log("exec");
+        if(stdout){
+            console.log("stdout: " + stdout);
+        } else if(stderr){
+            console.log("stderr: " + stderr);
+        }
+        //so we can perhaps fork a nodejs process which spawns the java process and inturn will handle the callback
+        childProcess = fork("./fileupload/handlefile.js");
+        childProcess.on('message', (msg) => {
+            console.log(`PARENT: message from child process is ${msg}`);
+        });
+        childProcess.send({"number":69})
+    });*/
     res.sendStatus(200);
 });
 

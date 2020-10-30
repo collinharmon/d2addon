@@ -1,9 +1,12 @@
 import React, { Fragment, useState } from 'react';
+import AuthApi from "./authapi";
 
 const FileUpload = () => {
     const [file, setFile] = useState('');
     const [filename, setFilename] = useState('Choose File');
     const [uploadedFile, setUploadedFile] = useState({});
+    
+    const Auth = React.useContext(AuthApi);
 
     const onChange = e => {
         setFile(e.target.files[0]);
@@ -18,7 +21,7 @@ const FileUpload = () => {
            method: 'POST',
            body: formData
        };
-       fetch('http://localhost:5000/upload', options)
+       fetch(`http://localhost:5000/upload/?username=${Auth.username}`, options)
        .then(response => console.log(response.status))
        .catch(err => console.log(err))
 
