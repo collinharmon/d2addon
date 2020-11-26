@@ -4,7 +4,8 @@ import AuthApi from "./authapi";
 const FileUpload = () => {
     const [file, setFile] = useState('');
     const [filename, setFilename] = useState('Choose File');
-    const [uploadedFile, setUploadedFile] = useState({});
+    const [uploadFileFail, setUploadFileFail] = useState(false);
+    const [uploadFileSuccess, setUploadFileSuccess] = useState(false);
     
     const Auth = React.useContext(AuthApi);
 
@@ -22,7 +23,11 @@ const FileUpload = () => {
            body: formData
        };
        fetch(`http://localhost:5000/upload/?username=${Auth.username}`, options)
-       .then(response => console.log(response.status))
+       .then(response => {
+           if(response.status != 200) setUploadFileFail(true);
+           else setUploadFileSuccess(true);
+           console.log(response.status);
+        })
        .catch(err => console.log(err))
 
     }
@@ -45,6 +50,10 @@ const FileUpload = () => {
                 <input type="submit" 
                        value="Upload" 
                        className="btn btn-primary btn-block mt-4" />
+                {uploadFileFail? (<div style={{ fontSize: 12, color: "red"}}>Failed to upload file, contact admin</div>
+                ) : null}
+                {uploadFileSuccess? (<div style={{ fontSize: 12, color: "green"}}>Successfully uploaded file</div>
+                ) : null}
             </form>
         </Fragment>
     )

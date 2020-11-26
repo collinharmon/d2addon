@@ -6,6 +6,7 @@ import CreateAccount from './createaccount.js';
 import ContactMe from './contactme.js';
 
 import AuthApi from "./authapi";
+import StashViewer from './stashviewer/stashviewer.js';
 
 const Login = () => {
   const [auth,setAuth] = useState(false);
@@ -121,6 +122,7 @@ const LoginRoutes = () =>{
         <Dashboard />
       </ProtectedDashboard>
       <Route exact path="/ContactMe" component={ContactMe} />
+      <Route exact path="/StashView" component={StashViewer} />
     </Switch>
   )
 }

@@ -89,6 +89,7 @@ app.post('/Createaccount', (req, res) =>{
 
 app.post('/upload', upload.single('thefile'), (req, res) => {
     const {username} = req.query;
+<<<<<<< Updated upstream
     /*const q = req.query;
      *console.log(q.username);
     */
@@ -116,6 +117,30 @@ app.post('/upload', upload.single('thefile'), (req, res) => {
         childProcess.send({"number":69})
     });*/
     res.sendStatus(200);
+=======
+    
+    exec(`java -jar C:\\Users\\colli\\d2reader\\out\\artifacts\\d2reader_jar\\d2reader.jar ${__dirname}\\${req.file.path}`, exec_options, (error, stdout, stderr) => {
+      var filename = `${__dirname}\\${req.file.path}`;
+      filename = filename.replace(/^.*[\\\/]/, '');
+      filename = __dirname + "\\fileupload\\json\\" + filename.substring(0, filename.length-4); 
+      try{
+        const fs = require('fs');
+        const stashData = fs.readFileSync(filename + ".json", 'utf8');
+        let queryInfo = processStashData(JSON.parse(stashData), username);
+        console.log("loop count: " + queryInfo[0]);
+        for(i = 0; i < queryInfo[0]; i++){
+          itemFilename = filename + "__" + (i+1) + ".json";
+          console.log(itemFilename);
+          const itemData = fs.readFileSync(itemFilename, 'utf8');
+          processItemQueries(JSON.parse(itemData), username, queryInfo[1]);
+        }
+        res.sendStatus(200);
+      } catch(err) {
+        console.error(err);
+        res.sendStatus(469);
+      }
+    } );
+>>>>>>> Stashed changes
 });
 
 const PORT = process.env.PORT || 5000;
