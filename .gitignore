@@ -5,6 +5,11 @@
 /d2addon-back-end/node_modules
 /d2addon-back-end/public/
 /d2addon-back-end/fileupload/json/
+<<<<<<< HEAD:.gitignore
+=======
+/d2addon-back-end/d2111/
+/d2addon-back-end/multiprocessEfforts/
+>>>>>>> master:d2addon-front-end/.gitignore
 /.pnp
 .pnp.js
 /
