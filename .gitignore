@@ -5,6 +5,8 @@
 /d2addon-back-end/node_modules
 /d2addon-back-end/public/
 /d2addon-back-end/fileupload/json/
+/d2addon-back-end/d2111/
+/d2addon-back-end/multiprocessEfforts/
 /.pnp
 .pnp.js
 /
