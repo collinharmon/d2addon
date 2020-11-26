@@ -104,6 +104,7 @@ app.post('/upload', upload.single('thefile'), (req, res) => {
           console.log(itemFilename);
           const itemData = fs.readFileSync(itemFilename, 'utf8');
           processItemQueries(JSON.parse(itemData), username, queryInfo[1]);
+          res.sendStatus(200);
         }
         res.sendStatus(200);
       } catch(err) {
@@ -139,15 +140,15 @@ const processStashData = (data, username) => {
 
 const processItemQueries = (data, username, stashOwner) => {
     const sqlQuery = `insert into items (StashID, itemType, html, itemName, baseItemName, itemCategory,` + 
-                        `itemKind, width, height, socketed, totalSockets, socketsFilled, level, quality, ethereal,` + 
-                            `throwable, stackable, identified, currentDurability, maxDurability, defense, block, chanceBlock,` + 
-                                `initDefense, requiredLevel, requiredStrength, requiredDexterity, stashPage, setName, setID)` + 
-                                        `values ` + data.Items.map((item) => 
+                        `itemKind, bodyLocation1, bodyLocation2, width, height, socketed, totalSockets, socketsFilled,` + 
+                            `level, quality, ethereal, throwable, stackable, identified, currentDurability, maxDurability, defense,` +
+                                `block, chanceBlock, initDefense, requiredLevel, requiredStrength, requiredDexterity, stashPage, setName, setID)` + 
+                                    `values ` + data.Items.map((item) => 
     {
         var querySelectStashID = `(SELECT stashID from stashes where stashOwner = '${stashOwner}' and userID = (SELECT id from users where username = '${username}'))`;
 
         var itemQuery = `(` + querySelectStashID + `, '${item.itemType}', '${cleanString(item.html)}', '${cleanString(item.itemName)}', '${cleanString(item.baseItemName)}',` +
-                            `'${item.itemCategory}', '${item.itemKind}', ${item.width}, ${item.height}, ${item.socketed}, ${item.totalSockets},` + 
+                            `'${item.itemCategory}', '${item.itemKind}', '${item.bodyLocation1}', '${item.bodyLocation2}', ${item.width}, ${item.height}, ${item.socketed}, ${item.totalSockets},` + 
                                 `${item.socketsFilled}, ${item.level}, '${item.quality}', ${item.ethereal}, ${item.throwable},  ${item.stackable},` + 
                                     `${item.identified}, ${item.currDur}, ${item.maxDur}, ${item.defense}, ${item.cBlock}, ${item.iBlock}, ${item.initDef},` +
                                         `${item.reqLvl}, ${item.reqStr},  ${item.reqDex},  ${item.stashPage},  '${cleanString(item.setName)}', ${item.setID}` + `)`;
