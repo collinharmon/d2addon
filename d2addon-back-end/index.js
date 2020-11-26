@@ -105,15 +105,12 @@ app.post('/upload', upload.single('thefile'), (req, res) => {
           const itemData = fs.readFileSync(itemFilename, 'utf8');
           processItemQueries(JSON.parse(itemData), username, queryInfo[1]);
         }
+        res.sendStatus(200);
       } catch(err) {
         console.error(err);
         res.sendStatus(469);
       }
-
-
     } );
-    
-    res.sendStatus(200);
 });
 
 

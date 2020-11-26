@@ -6,7 +6,6 @@ import * as serviceWorker from './serviceWorker';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap';  /*import necessary for dropdown to work*/
 import Login from './login.js';
-import Routes from './routes.js';
 
 ReactDOM.render(
   <React.StrictMode>
