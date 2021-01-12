@@ -10,8 +10,11 @@ const FileUpload = () => {
     const Auth = React.useContext(AuthApi);
 
     const onChange = e => {
-        setFile(e.target.files[0]);
-        setFilename(e.target.files[0].name);
+        if( e.target.files[0] != undefined && e.target.files[0].name != undefined )
+        {
+            setFile(e.target.files[0]);
+            setFilename(e.target.files[0].name);
+        }
     }
 
     const onSubmit = e => {
@@ -24,8 +27,14 @@ const FileUpload = () => {
        };
        fetch(`http://localhost:5000/upload/?username=${Auth.username}`, options)
        .then(response => {
-           if(response.status != 200) setUploadFileFail(true);
-           else setUploadFileSuccess(true);
+           if(response.status != 200){
+                setUploadFileFail(true);
+                setUploadFileSuccess(false);
+           } 
+           else{
+                setUploadFileFail(false);
+                setUploadFileSuccess(true);
+           }
            console.log(response.status);
         })
        .catch(err => console.log(err))

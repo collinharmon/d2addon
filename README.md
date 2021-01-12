@@ -21,3 +21,16 @@ Known bugs:
  - front-end allows uploading with no file chosen
  - cannot calculate affixes that are dependent on char level. may be possbile for items in personal stashes. need to dig in
  - don't allow spaces in username
+ - upload stash fails indicate success to front-end
+
+
+Nice to haves:
+ - Filter charms by skillers/class 
+
+
+ To Dos:
+ - try/catch error handling for various chunks of code need (see building item query)
+ - middleware for backend to log every ping
+ - refactor code
+ - performance analysis (profiler)
+ - resolve html parser installation fault
