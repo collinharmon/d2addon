@@ -1,11 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './css/index.css';
-import NavBar from './navbar'
+import NavBar from './modules/common/navbar'
 import * as serviceWorker from './serviceWorker';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap';  /*import necessary for dropdown to work*/
-import Login from './login.js';
+import Login from './modules/user/login/index.js';
 
 ReactDOM.render(
   <React.StrictMode>

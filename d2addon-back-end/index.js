@@ -105,6 +105,7 @@ app.post('/Getitems', (req, res) =>{
 app.post('/upload', upload.single('thefile'), (req, res) => {
     const {username} = req.query;
     
+    console.log(`java -jar C:\\Users\\colli\\d2reader\\out\\artifacts\\d2reader_jar\\d2reader.jar ${__dirname}\\${req.file.path}`);
     exec(`java -jar C:\\Users\\colli\\d2reader\\out\\artifacts\\d2reader_jar\\d2reader.jar ${__dirname}\\${req.file.path}`, exec_options, (error, stdout, stderr) => {
         var filename = `${__dirname}\\${req.file.path}`;
         filename = filename.replace(/^.*[\\\/]/, '');

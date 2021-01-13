@@ -1,12 +1,12 @@
-import Dashboard from './dashboard.js';
+import Dashboard from '../../dashboard/index.js';
 import React, { useState } from 'react';
 import {BrowserRouter as Router, Redirect, Switch, Route} from 'react-router-dom';
 import Cookies from 'js-cookie'
-import CreateAccount from './createaccount.js';
-import ContactMe from './contactme.js';
+import CreateAccount from '../signup/index.js';
+import ContactMe from '../../contactme/index.js';
 
-import AuthApi from "./authapi";
-import StashViewer from './stashviewer/stashviewer.js';
+import AuthApi from "../../common/authapi";
+import StashViewer from '../../stashviewer/index.js';
 
 const Login = () => {
   const [auth,setAuth] = useState(false);

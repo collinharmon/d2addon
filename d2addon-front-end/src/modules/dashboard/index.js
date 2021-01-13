@@ -1,8 +1,8 @@
 import React from 'react';
 
-import AuthApi from "./authapi";
+import AuthApi from "../common/authapi";
 import Cookies from 'js-cookie';
-import FileUpload from "./fileupload.js";
+import FileUpload from "../filehandling/index.js";
 import { useHistory } from "react-router-dom";
 
 export function Dashboard(){

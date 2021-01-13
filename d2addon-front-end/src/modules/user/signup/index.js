@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import AuthApi from "./authapi";
+import AuthApi from "../../common/authapi";
 import Cookies from 'js-cookie'
 
 const CreateAccount = () => {

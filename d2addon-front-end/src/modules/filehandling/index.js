@@ -1,5 +1,5 @@
 import React, { Fragment, useState } from 'react';
-import AuthApi from "./authapi";
+import AuthApi from "../common/authapi";
 
 const FileUpload = () => {
     const [file, setFile] = useState('');

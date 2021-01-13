@@ -22,6 +22,8 @@ Known bugs:
  - cannot calculate affixes that are dependent on char level. may be possbile for items in personal stashes. need to dig in
  - don't allow spaces in username
  - upload stash fails indicate success to front-end
+ - when .sss named "_LOD_SharedStashSave" the java app cannot parse. Probably due to a naming restriction i have in place 
+ - in stashviewer no notification if query returns nothing
 
 
 Nice to haves:

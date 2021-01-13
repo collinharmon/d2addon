@@ -1,44 +1,9 @@
 import React, { useState } from 'react';
 import { itemFilters, defaultState, advancedStates } from "./itemfilters";
 import { List, AutoSizer, CellMeasurer, CellMeasurerCache } from "react-virtualized";
-import AuthApi from "../authapi";
+import AuthApi from "../common/authapi";
 
 var parse = require('html-react-parser'); /* recall the issue installing this */
-
-
-/*const StashViewer = () => {
-
-    /*const handleChange = (e) => {
-        console.log("Inside handleChange()");
-        let newState = radioButtonStates;
-        newState[e.target.id] = !newState[e.target.id];
-        setRadioButtonStates(newState);
-        console.log("after update state: " + radioButtonStates);
-
-        e.target.checked = true;
-        const target = e.target;
-        const value = target.value;
-        const theID = target.id;
-        const name = target.name;
-
-        console.log(target);
-        console.log(value);
-    };*/
-
-   /* return (
-        <div>
-            <h1>Stash View</h1>
-            <div>
-                <List
-                    filters={itemFilters}
-                />
-            </div>
-        </div>
-    );
-}*/
-
-//we will want a useState conditional to conditionally render extra html if a radio button is enabled
-//this might need tp be component if i cant modify list w/ use state
 
 const StashViewer= () => {
   const [radioButtonStates, setRadioButtonStates] = useState(defaultState);
