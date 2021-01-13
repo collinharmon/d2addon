@@ -5,9 +5,9 @@ import Dashboard from '../dashboard/index.js';
 import ContactMe from '../contactme/index.js';
 import StashViewer from '../stashviewer/index.js';
 import AuthApi from "../common/authapi";
-import {BrowserRouter as Router, Redirect, Switch, Route} from 'react-router-dom';
+import { BrowserRouter as Router, Redirect, Switch, Route } from 'react-router-dom';
 
-const Routes = () =>{
+const Routes = () => {
   const Auth = React.useContext(AuthApi);
   return (
     <Router>
