@@ -12,6 +12,8 @@ const StashViewer= () => {
   const [advancedFiltersStates, setAdvancedFiltersStates] = useState(advancedStates);
   const [htmlDisplay, setHtmlDisplay] = useState('');
   const [itemNameSet, setNameSet] = useState([]);
+  const [emptyQueryResults, setEmptyQueryResults] = useState(false);
+  const [queryError, setQueryError] = useState(false);
 
   const Auth = React.useContext(AuthApi);
 
@@ -21,10 +23,12 @@ const StashViewer= () => {
       let query = buildItemQuery( Auth.username, radioButtonStates, advancedFiltersStates );
 
       fetch(`http://localhost:5000/Getitems?sqlQuery=${query}`, {method: 'POST'})
-      .then(response => response.json())
+      .then(response => response.status != 468 ? response.json() : setQueryError( true ))
       .then(data => 
       {
-        if(data.length > 0){
+        if( data && data.length > 0 ){
+          setEmptyQueryResults( false );
+          setQueryError( false );
           let itemNameHtmlList = data.map( (item) => {
             return {
                 itemName: item.itemName,
@@ -46,6 +50,13 @@ const StashViewer= () => {
 
           setHtmlDisplay( itemNameHtmlList[0].itemHtml );
         }
+        else if ( data ){
+          setEmptyQueryResults( true );
+          setQueryError( false );
+          setNameSet( [] );
+          setHtmlDisplay( "" );
+        }
+        else setEmptyQueryResults( false );
       })
       .catch(err => console.error(err))
   };
@@ -56,8 +67,14 @@ const StashViewer= () => {
         <form onSubmit={handleSubmit}>
             <RadioButtonFilters />  
             <button type="submit">Submit</button>
+            { queryError ? (
+              <div style={{ fontSize: 12, color: "red"}}>There was a problem with your query. Did you select at least one item?</div>
+            ) : ( null ) }
         </form>
-        {itemNameSet.length > 0 ? (
+        { emptyQueryResults ?  (
+          <div style={{ fontSize: 12, color: "red"}}>No items present with the given item filters.</div>
+        ) : ( null ) }
+        { itemNameSet.length > 0 ? (
           <div>
             <ItemDisplay />
             <ItemList />

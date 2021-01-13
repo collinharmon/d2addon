@@ -5,7 +5,6 @@ const multer = require('multer');
 const path = require('path');
 const {exec, fork} = require('child_process');
 const { lstat } = require('fs');
-//const {doQuery, pool} = require('./mysqlConnector');
 var config_connections = require('./mysql_connections.js');
 
 const exec_options = {
@@ -94,9 +93,9 @@ app.post('/Getitems', (req, res) =>{
     connection.query(sqlQuery, (err, results) => {
         if(err){
             console.log("Error on getItem query");
+            res.sendStatus(468);
         }
         else {
-            //res.sendStatus(200);
             return res.json(results);
         }
     });
