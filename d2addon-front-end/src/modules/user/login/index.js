@@ -1,39 +1,7 @@
-import Dashboard from '../../dashboard/index.js';
 import React, { useState } from 'react';
-import {BrowserRouter as Router, Redirect, Switch, Route} from 'react-router-dom';
 import Cookies from 'js-cookie'
-import CreateAccount from '../signup/index.js';
-import ContactMe from '../../contactme/index.js';
-
 import AuthApi from "../../common/authapi";
-import StashViewer from '../../stashviewer/index.js';
 
-const Login = () => {
-  const [auth,setAuth] = useState(false);
-  const [username,setUsername] = useState('');
-  const [password,setPassword] = useState('');
-
-  const readCookie = () => {
-      const user = Cookies.get("user");
-      if(user){
-          setAuth(true);
-          setUsername(user);
-      }
-  }
-  React.useEffect(() => {
-      readCookie();
-  }, [])
-
-  return(
-    <div>
-      <AuthApi.Provider value={{auth, setAuth, username, setUsername, password, setPassword}}>
-        <Router>
-          <LoginRoutes/>
-        </Router>
-      </AuthApi.Provider>
-    </div>
-  )
-}
 const LoginForm = () => {
   const [invalidUsername,setInvalidUsername] = useState(false);
   const [invalidPassword,setInvalidPassword] = useState(false);
@@ -85,7 +53,7 @@ const LoginForm = () => {
   };
   return(
     <div>
-      <h1>Welcome to the heaven's forge</h1>
+      <h1>Welcome to The Heaven's Forge</h1>
       <form onSubmit={handleSubmit}>
           <div>
               <label>Username</label>
@@ -108,54 +76,4 @@ const LoginForm = () => {
   )
 }
 
-const LoginRoutes = () =>{
-  const Auth = React.useContext(AuthApi);
-  return (
-    <Switch>
-      <ProtectedLogin exact path="/" auth={Auth.auth}>
-          <LoginForm />
-      </ProtectedLogin>
-      <ProtectedLogin exact path="/CreateAccount" auth={Auth.auth}>
-          <CreateAccount />
-      </ProtectedLogin>
-      <ProtectedDashboard exact path="/Dashboard" auth={Auth.auth} >
-        <Dashboard />
-      </ProtectedDashboard>
-      <Route exact path="/ContactMe" component={ContactMe} />
-      <Route exact path="/StashView" component={StashViewer} />
-    </Switch>
-  )
-}
-
-
-const ProtectedDashboard = ({auth, children, ...rest}) =>{
-  return(
-    <Route
-    {...rest}
-    render = {() => auth? (
-        children
-    ) :
-      (
-        <Redirect to="/"/>
-      )
-    }
-    />
-  )
-}
-
-const ProtectedLogin = ({auth, children, ...rest}) =>{
-  return(
-    <Route
-    {...rest}
-    render = {() => !auth? (
-        children
-    ) :
-      (
-        <Redirect to="/Dashboard"/>
-      )
-    }
-    />
-  )
-}
-
-export default Login;
+export default LoginForm;

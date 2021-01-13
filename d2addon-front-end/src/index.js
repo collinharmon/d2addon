@@ -5,12 +5,12 @@ import NavBar from './modules/common/navbar'
 import * as serviceWorker from './serviceWorker';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap';  /*import necessary for dropdown to work*/
-import Login from './modules/user/login/index.js';
+import App from './App.js';
 
 ReactDOM.render(
   <React.StrictMode>
     <NavBar />
-    <Login />
+    <App />
   </React.StrictMode>,
   document.getElementById('root')
 );
